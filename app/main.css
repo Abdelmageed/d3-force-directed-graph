@@ -16,6 +16,10 @@ body{
     color: white;
     padding: 5px;
     font-size: 12px;
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .node-container{

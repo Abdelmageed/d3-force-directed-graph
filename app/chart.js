@@ -1,5 +1,7 @@
 import * as d3 from 'd3'
 import './flags.css'
+import tip from 'd3-tip'
+import $ from 'jquery'
 //import './flags.png'
 
 const dataUrl = 'https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json'
@@ -12,7 +14,10 @@ const chart = () => {
         .attr('width', width)
         .attr('height', height)
         
-        
+    let tooltip = nodeContainer.append('span')    
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
+//        svg.call(tooltip)
     
     d3.json(dataUrl, (json) => {
         let force = d3.forceSimulation(json.nodes)
@@ -36,6 +41,19 @@ const chart = () => {
             .data(json.nodes).enter()
             .append('img')
             .attr('class', d=>`node flag flag-${d.code}`)
+            .on('mouseover', d=>{
+                tooltip.html(`<strong>${d.country}</strong>`)
+                let position = $(d3.event.target).position(),
+                    width =  $('.tooltip').width()
+                
+                tooltip.style('opacity', 1)
+                    .style('left', position.left - width/2 + 'px')
+                    .style('top', position.top - 30 + 'px')
+
+            })
+            .on('mouseout', d=>{
+                tooltip.style('opacity', 0)
+            })
 
         force.on('tick', ()=>{
             link.attr('x1', d=>d.source.x)
