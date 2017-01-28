@@ -1,0 +1,27 @@
+body{
+    text-align: center;
+    font-family: helvitica sans-serif;
+    padding:10px 0px;
+    background:#f4f4f7;
+    color:#444;
+    margin:0;
+}
+
+svg{
+    display: block;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.tooltip{
+    background-color: dimgrey;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.link{
+    stroke: darkgrey;
+/*    stroke-width: 3px;*/
+}
