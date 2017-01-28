@@ -4,15 +4,20 @@ import './flags.css'
 
 const dataUrl = 'https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json'
 const chart = () => {
-    let svg = d3.select('body').append('svg')
-        .attr('width', '960')
-        .attr('height', '600')
+    let width = 960,
+        height = 720
+    let nodeContainer = d3.select('body').append('div')
+            .attr('class', 'node-container')
+    let svg = nodeContainer.append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        
         
     
     d3.json(dataUrl, (json) => {
         let force = d3.forceSimulation(json.nodes)
             .force('link', d3.forceLink(json.links).distance(50))
-            .force('center', d3.forceCenter(480, 300))
+            .force('center', d3.forceCenter(width/2, height/2 - 50))
             .force('charge', d3.forceManyBody()
                     .strength(-30)
                     .distanceMin(25)
@@ -25,8 +30,9 @@ const chart = () => {
             .append('line')
             .attr('class', 'link')
         
-        let node = d3.select('body').append('div')
-            .attr('class', 'node-container')
+        
+        
+        let node = nodeContainer.selectAll('.node')
             .data(json.nodes).enter()
             .append('img')
             .attr('class', d=>`node flag flag-${d.code}`)
