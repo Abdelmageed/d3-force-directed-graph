@@ -1,7 +1,9 @@
 body{
-    text-align: center;
+/*    text-align: center;*/
+    
     font-family: helvitica sans-serif;
-    padding:10px 0px;
+/*    padding:10px 0px;*/
+    position: absolute;
     background:#f4f4f7;
     color:#444;
     margin:0;
@@ -21,6 +23,10 @@ svg{
     font-size: 12px;
 }
 
+.node-container{
+    position: absolute;
+    margin: auto;
+}
 .link{
     stroke: darkgrey;
 /*    stroke-width: 3px;*/
