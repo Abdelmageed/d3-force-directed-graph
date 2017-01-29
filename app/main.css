@@ -26,7 +26,11 @@ body{
     position: absolute;
     width: 100%;
 }
+svg{
+    width: 100%;
+    height: 700px
+}
 .link{
-    stroke: darkgrey;
-/*    stroke-width: 3px;*/
+    stroke: #666;
+/*    stroke-width: 2px;*/
 }

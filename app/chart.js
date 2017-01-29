@@ -25,7 +25,7 @@ const chart = () => {
             .force('center', d3.forceCenter(width/2, height/2 - 50))
             .force('charge', d3.forceManyBody()
                     .strength(-30)
-                    .distanceMin(25)
+                    .distanceMin(50)
                     .distanceMax(100))
             .force('collision', d3.forceCollide(16)
                     .strength(0.25))
@@ -41,7 +41,7 @@ const chart = () => {
             .data(json.nodes).enter()
             .append('img')
             .attr('class', d=>`node flag flag-${d.code}`)
-            .on('mouseover', d=>{
+            .on('mouseover', d=>{/*tooltip.show*/
                 tooltip.html(`<strong>${d.country}</strong>`)
                 let position = $(d3.event.target).position(),
                     width =  $('.tooltip').width()
@@ -54,6 +54,22 @@ const chart = () => {
             .on('mouseout', d=>{
                 tooltip.style('opacity', 0)
             })
+            .call(d3.drag()
+                .on('start', d=>{
+                    force.alphaTarget(0.3).restart()
+                    d.fx = d.x
+                    d.fy = d.y
+            })
+                .on('drag', d=>{
+                    d.fx = d3.event.x
+                    d.fy = d3.event.y
+            })
+                .on('end', d=>{
+                    d.fx = null
+                    d.fy = null
+                    force.velocityDecay(0.7)
+            })
+                 )
 
         force.on('tick', ()=>{
             link.attr('x1', d=>d.source.x)
@@ -65,7 +81,6 @@ const chart = () => {
                 .style('top', d=>d.y - 6.5 + 'px')
         })
         
-//        force.start()
     })
 }
 
